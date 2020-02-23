@@ -6,6 +6,21 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
  
+class Square():
+    def __init__ (self):
+        self.x = 390
+        self.y = 580
+        self.width = 20
+        self.hight = 20
+        
+    
+class Stick():
+    def __init__ (self):
+        self.x = 200
+        self.y = 200
+        self.width = 200
+        self.hight = 35
+ 
 pygame.init()
  
 # Set the width and height of the screen [width, height]
@@ -19,6 +34,9 @@ done = False
  
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
+ 
+square = Square()
+stick = Stick()
  
 # -------- Main Program Loop -----------
 while not done:
@@ -39,7 +57,9 @@ while not done:
     screen.fill(WHITE)
  
     # --- Drawing code should go here
- 
+    stick
+    
+    square
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
