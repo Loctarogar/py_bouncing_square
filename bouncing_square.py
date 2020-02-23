@@ -41,8 +41,6 @@ class Square():
         if self.y <= stick.y + stick.hight:
             if self.x >= stick.x and self.x + self.width <= stick.x + stick.width and self.y + self.hight > stick.y:
                 self.y_vel *= -1
-            
-            
 
 pygame.init()
  
@@ -50,7 +48,7 @@ pygame.init()
 size = (800, 600)
 screen = pygame.display.set_mode(size)
  
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Bouncing square")
  
 # Loop until the user clicks the close button.
 done = False
