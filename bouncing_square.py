@@ -13,6 +13,9 @@ class Square():
         self.width = 20
         self.hight = 20
         
+    def draw(self, screen):
+        pygame.draw.rect(screen, RED, (self.y, self.x, self.width, self.hight))
+        
     
 class Stick():
     def __init__ (self):
@@ -20,6 +23,9 @@ class Stick():
         self.y = 200
         self.width = 200
         self.hight = 35
+        
+    def draw(self, screen):
+        pygame.draw.rect(screen, RED, (self.y, self.x, self.width, self.hight))
  
 pygame.init()
  
@@ -34,9 +40,19 @@ done = False
  
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
- 
+
 square = Square()
 stick = Stick()
+
+# create background
+background = pygame.Surface(screen.get_size());
+background = background.convert();
+background.fill((0, 0, 0));
+
+def redrawGameWindow():
+    screen.blit(background, (0, 0))
+    square.draw(screen)
+    stick.draw(screen)
  
 # -------- Main Program Loop -----------
 while not done:
@@ -44,6 +60,13 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+    
+    keys = pygame.key.get_pressed()
+    
+    if keys[pygame.K_LEFT] and stick.y >= 0:
+        stick.y -= 4
+    if keys[pygame.K_RIGHT] and stick.y <= size[0] - stick.width:
+        stick.y += 4
  
     # --- Game logic should go here
  
@@ -57,7 +80,7 @@ while not done:
     screen.fill(WHITE)
  
     # --- Drawing code should go here
-    stick
+    redrawGameWindow()
     
     square
     # --- Go ahead and update the screen with what we've drawn.
