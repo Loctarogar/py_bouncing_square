@@ -5,28 +5,45 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
- 
-class Square():
-    def __init__ (self):
-        self.x = 390
-        self.y = 580
-        self.width = 20
-        self.hight = 20
-        
-    def draw(self, screen):
-        pygame.draw.rect(screen, RED, (self.y, self.x, self.width, self.hight))
-        
     
 class Stick():
     def __init__ (self):
         self.x = 200
-        self.y = 200
+        self.y = 120
         self.width = 200
-        self.hight = 35
+        self.hight = 15
         
     def draw(self, screen):
-        pygame.draw.rect(screen, RED, (self.y, self.x, self.width, self.hight))
- 
+        pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.hight))
+        
+stick = Stick()
+
+class Square():
+    def __init__ (self):
+        self.x = 390
+        self.y = 480
+        self.width = 20
+        self.hight = 20
+        self.y_vel = 2
+        self.x_vel = 2
+        
+    def draw(self, screen):
+        pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.hight))
+        self.y += self.y_vel
+        self.x += self.x_vel
+        # bouncing from display borders
+        if self.y + self.hight >= size[1] or self.y <= 1:
+            self.y_vel = self.y_vel * -1
+        if self.x + self.width >= size[0] or self.x <= 1:
+            self.x_vel = self.x_vel * -1
+        #bouncing from stick
+            
+        if self.y <= stick.y + stick.hight:
+            if self.x >= stick.x and self.x + self.width <= stick.x + stick.width and self.y + self.hight > stick.y:
+                self.y_vel *= -1
+            
+            
+
 pygame.init()
  
 # Set the width and height of the screen [width, height]
@@ -42,7 +59,7 @@ done = False
 clock = pygame.time.Clock()
 
 square = Square()
-stick = Stick()
+
 
 # create background
 background = pygame.Surface(screen.get_size());
@@ -63,10 +80,10 @@ while not done:
     
     keys = pygame.key.get_pressed()
     
-    if keys[pygame.K_LEFT] and stick.y >= 0:
-        stick.y -= 4
-    if keys[pygame.K_RIGHT] and stick.y <= size[0] - stick.width:
-        stick.y += 4
+    if keys[pygame.K_LEFT] and stick.x >= 0:
+        stick.x -= 4
+    if keys[pygame.K_RIGHT] and stick.x <= size[0] - stick.width:
+        stick.x += 4
  
     # --- Game logic should go here
  
