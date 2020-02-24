@@ -44,6 +44,7 @@ class Square():
     def hit_box(self, box):
         if self.y + self.height > box.y:
             if self.x + self.width > box.x and self.x + self.width < box.x + box.width:
+                self.y_vel *= -1
                 return True
             return False
                 
