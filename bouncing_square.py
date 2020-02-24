@@ -24,8 +24,8 @@ class Square():
         self.y = 480
         self.width = 20
         self.height = 20
-        self.y_vel = 2
-        self.x_vel = 2
+        self.y_vel = 4
+        self.x_vel = 1
         
     def draw(self, screen):
         pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
@@ -87,14 +87,18 @@ def redrawGameWindow():
     for box in boxes:
         box.draw(screen)
 
-box_step = 50
+box_step_side = 50
+box_step_up = 35
 count = 0
 boxes = [];
-def draw_boxes(box_step):
-    for box in range(0, 20):
-        boxes.append(Box(box_step,570))
-        box_step += 35
 
+def draw_boxes(box_step_side, box_step_up = 0):
+    if box_step_up != 0:
+        for box in boxes:
+            box.y -= box_step_up
+    for box in range(0, 20):
+        boxes.append(Box(box_step_side,570))
+        box_step_side += 35
 
 # -------- Main Program Loop -----------
 while not done:
@@ -112,7 +116,12 @@ while not done:
  
     # --- Game logic should go here
     if len(boxes) == 0:
-        draw_boxes(box_step)
+        draw_boxes(box_step_side)
+    elif count % 7000 == 0 and count != 0:
+        print (count)
+        draw_boxes(box_step_side, box_step_up)
+    count += 1
+    
         
     for box in boxes:
         if square.hit_box(box):
