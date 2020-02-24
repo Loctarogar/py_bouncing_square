@@ -86,13 +86,15 @@ def redrawGameWindow():
     for box in boxes:
         box.draw(screen)
 
-step = 50
+box_step = 50
+count = 0
 boxes = [];
-for box in range(0, 20):
-    boxes.append(Box(step,570))
-    step += 35
-for box in boxes:
-    print (box.x)    
+def draw_boxes(box_step):
+    for box in range(0, 20):
+        boxes.append(Box(box_step,570))
+        box_step += 35
+
+
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -108,6 +110,9 @@ while not done:
         stick.x += 4
  
     # --- Game logic should go here
+    if len(boxes) == 0:
+        draw_boxes(box_step)
+        
     for box in boxes:
         if square.hit_box(box):
             boxes.pop(boxes.index(box))
